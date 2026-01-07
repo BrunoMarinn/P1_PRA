@@ -2,17 +2,25 @@ CXX = g++
 CXXFLAGS = -Wall -Wextra -std=c++17
 
 BIN = bin
-TARGET = $(BIN)/testListArray
+TARGET_TEST = $(BIN)/testListArray
+TARGET_MAIN = $(BIN)/main
 
-SRC = testListArray.cpp
-HDR = List.h ListArray.h
+TEST_SRC = testListArray.cpp
 
-all: $(TARGET)
+MAIN_SRC = main.cpp Circle.cpp Rectangle.cpp Square.cpp Drawing.cpp
 
-$(TARGET): $(SRC) $(HDR)
+MAIN_HDR = List.h ListArray.h Node.h ListLinked.h Point2D.h Shape.h Circle.h Rectangle.h Square.h Drawing.h
+
+all: $(TARGET_TEST) $(TARGET_MAIN)
+
+$(TARGET_TEST): $(TEST_SRC) List.h ListArray.h
 	mkdir -p $(BIN)
-	$(CXX) $(CXXFLAGS) -o $(TARGET) $(SRC)
+	$(CXX) $(CXXFLAGS) -o $(TARGET_TEST) $(TEST_SRC)
+
+$(TARGET_MAIN): $(MAIN_SRC) $(MAIN_HDR)
+	mkdir -p $(BIN)
+	$(CXX) $(CXXFLAGS) -o $(TARGET_MAIN) $(MAIN_SRC)
 
 clean:
-	rm -rf $(BIN) *.gch
+	rm -rf $(BIN) *.o *.gch
 
